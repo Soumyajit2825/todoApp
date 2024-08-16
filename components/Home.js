@@ -51,14 +51,20 @@ const Home = () => {
   };
 
   const handleDeleteTodo = async (id) => {
-    await deleteTodo({
-      variables: { id },
-    });
-    refetch();
+    console.log("Deleting todo with id:", id);
+    try {
+      await deleteTodo({
+        variables: { id },
+      });
+      console.log("Todo deleted successfully");
+      refetch();
+    } catch (err) {
+      console.error("Error deleting todo:", err);
+    }
   };
 
   const handleTriggerEdit = (item) => {
-    console.log("Editing todo:", item);
+    // console.log("Editing todo:", item);
     setTodoToBeEdited(item);
     setModalVisible(true);
     setTodoInputValue(item.title);

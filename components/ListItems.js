@@ -12,16 +12,15 @@ import {
   SwipedTodoText,
 } from "../styles/appStyles";
 
-const ListItems = ({ todos, setTodos, handleTriggerEdit }) => {
+const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
   const [swipedRow, setSwipedRow] = useState(null);
 
-  const handleDeleteTodo = (rowMap, rowKey) => {
-    // console.log(`Deleting todo with key: ${rowKey}`);
-    const newTodos = [...todos];
-    const todoIndex = todos.findIndex((todo) => todo.key === rowKey);
-    newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
-  };
+  // const handleDeleteTodo = (rowMap, rowKey) => {
+  //   const newTodos = [...todos];
+  //   const todoIndex = todos.findIndex((todo) => todo.key === rowKey);
+  //   newTodos.splice(todoIndex, 1);
+  //   setTodos(newTodos);
+  // };
 
   return (
     <>
@@ -50,7 +49,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit }) => {
           renderHiddenItem={(data, rowMap) => (
             <ListViewHidden>
               <HiddenButton
-                onPress={() => handleDeleteTodo(rowMap, data.item.key)}
+                onPress={() => handleDeleteTodo(data.item.id)}
               >
                 <Entypo name="trash" size={25} color={colors.secondary} />
               </HiddenButton>
