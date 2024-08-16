@@ -43,6 +43,7 @@ const InputModal = ({
       });
     } else {
       handleEditTodo({
+        id: todoToBeEdited.id,
         title: todoInputValue,
         date: todoToBeEdited.date,
         key: todoToBeEdited.key,

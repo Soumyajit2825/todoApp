@@ -16,6 +16,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit }) => {
   const [swipedRow, setSwipedRow] = useState(null);
 
   const handleDeleteTodo = (rowMap, rowKey) => {
+    // console.log(`Deleting todo with key: ${rowKey}`);
     const newTodos = [...todos];
     const todoIndex = todos.findIndex((todo) => todo.key === rowKey);
     newTodos.splice(todoIndex, 1);
@@ -46,7 +47,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit }) => {
               </ListView>
             );
           }}
-          renderHiddenItem={(data,rowMap) => (
+          renderHiddenItem={(data, rowMap) => (
             <ListViewHidden>
               <HiddenButton
                 onPress={() => handleDeleteTodo(rowMap, data.item.key)}
