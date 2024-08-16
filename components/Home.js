@@ -80,7 +80,7 @@ const Home = () => {
         <Text>Loading...</Text>
       </ModalContainer>
     );
-  if (error) return <Text>Error: {error.message}</Text>;
+//   if (error) return <Text>Error: {error.message}</Text>;
 
   return (
     <>
