@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { useQuery, useMutation } from "@apollo/client";
 import {
   GET_TODOS,
@@ -77,10 +77,10 @@ const Home = () => {
   if (loading)
     return (
       <ModalContainer>
-        <Text>Loading...</Text>
+        <ActivityIndicator size="large" color="white" />
       </ModalContainer>
     );
-//   if (error) return <Text>Error: {error.message}</Text>;
+  //   if (error) return <Text>Error: {error.message}</Text>;
 
   return (
     <>
