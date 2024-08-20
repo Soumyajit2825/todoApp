@@ -10,6 +10,7 @@ import {
   ListViewHidden,
   HiddenButton,
   SwipedTodoText,
+  Container
 } from "../styles/appStyles";
 
 const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
@@ -23,7 +24,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
   // };
 
   return (
-    <>
+      <Container>
       {todos.length === 0 && <TodoText>No Todos</TodoText>}
       {todos.length != 0 && (
         <SwipeListView
@@ -74,7 +75,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
           }}
         />
       )}
-    </>
+    </Container>
   );
 };
 

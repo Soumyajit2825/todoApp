@@ -24,16 +24,18 @@ export const Container = styled.SafeAreaView`
   padding: 20px;
   padding-bottom: 0px;
   flex: 1;
-  padding-top: ${statusBarHeight}px;
+  padding-top: 30px;
 `;
 
 // Header
 export const HeaderView = styled.View`
-  padding-vertical: 10px;
-  margin-bottom: 10px;
+  padding-top: 60px;
+  padding-left: 20px;
+  padding-right: 20px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: ${colors.primary};
 `;
 
 export const HeaderTitle = styled.Text`

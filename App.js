@@ -5,33 +5,49 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Home from "./components/Home";
+import { Text, View } from "react-native";
 import Login from "./components/Login";
 
 import { Container } from "./styles/appStyles";
-
-import { initializeApp } from "firebase/app";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { firebase_auth } from "./firebaseConfig";
+import { User } from "firebase/auth";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     setIsAuthenticated(!!user);
-  //   });
+  useEffect(() => {
+    onAuthStateChanged(firebase_auth, (user) => {
+      console.log(user);
+      setUser(user);
+    });
+  }, []);
 
-  //   return () => unsubscribe();
-  // }, []);
+  const auth = firebase_auth;
 
   return (
     <ApolloProvider client={client}>
+      {/* <> */}
       <NavigationContainer>
-        <Container>
-          <Home />
-          <StatusBar style="light" />
-        </Container>
+        <Stack.Navigator>
+          {user ? (
+            <Stack.Screen name="Home" component={Home} 
+            options={{ headerShown: false }}/>
+          ) : (
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+          )}
+        </Stack.Navigator>
+        <StatusBar style="light" />
       </NavigationContainer>
+      {/* </> */}
     </ApolloProvider>
   );
 }

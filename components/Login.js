@@ -1,78 +1,132 @@
-import { View, Text, StyleSheet, TextInput,ActivityIndicator,Button } from "react-native";
-import React from "react";
-import { firebase_auth } from "../firebaseconfig";
-
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+  View,
+  Button,
+  KeyboardAvoidingView,
+} from "react-native";
+import React, { useState } from "react";
+import {
+  Container,
+  StyledInput,
+  ModalButton,
+  HeaderTitle,
+  colors,
+} from "../styles/appStyles";
+import { firebase_auth } from "../firebaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const auth = firebase_auth;
 
-    const signIn = async () => {
-        setLoading(true);
-        try {
-           const response = await signInWithEmailAndPassword( auth, email, password);
-            console.log(response);
-        }
-        catch (error) {
-            console.log(error);
-            alert('Error signing in'+ error.message);
-        }
-        finally {
-            setLoading(false);
-        }
+  const signIn = async () => {
+    setLoading(true);
+    try {
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setError("Error signing in: " + error.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const signUp = async () => {
-        setLoading(true);
-        try {
-           const response = await createUserWithEmailAndPassword(auth, email, password);
-            console.log(response);
-            alert('Check your email for verification');
-        }
-        catch (error) {
-            console.log(error);
-            alert('Error signing up'+ error.message);
-        }
-        finally {
-            setLoading(false);
-        }
+  const signUp = async () => {
+    setLoading(true);
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response);
+      alert("Created user successfully!");
+    } catch (error) {
+      console.log(error);
+      setError("Error signing up: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Email" value={email}  autoCapitalize="none" onChangeText={(text)=>setEmail(text)}></TextInput>
-      <TextInput style={styles.input} placeholder="Password" value={password} autoCapitalize="none" onChangeText={(text)=>setPassword(text)} secureTextEntry={true}></TextInput>   
+    <Container style={styles.container}>
+      <HeaderTitle style={styles.title}>Login</HeaderTitle>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {/* <KeyboardAvoidingView > */}
+      <StyledInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        style={styles.input}
+      />
+      <StyledInput
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={styles.input}
+      />
       {loading ? (
-        <ActivityIndicator size="large" color="white" />
-      ) : (
-        <>
-          <Button title="Sign In" onPress={signIn} />
-          <Button title="Sign Up" onPress={signUp} />  
-        </> 
-      )}
-    </View>
+        <ActivityIndicator size="large" color={colors.tertiary} />
+      ) : null}
+      <View style={styles.buttonContainer}>
+        <Button title="Sign In" onPress={signIn} />
+        <Button title="Sign Up" onPress={signUp} />
+      </View>
+        {/* </KeyboardAvoidingView> */}
+    </Container>
   );
 };
-}
-
-export default Login;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 20,
+    flex: 1,
+    backgroundColor: colors.primary,
+  },
+  title: {
+    fontSize: 32,
+    marginBottom: 20,
+    color: colors.tertiary,
+    fontWeight: "bold",
+  },
+  error: {
+    color: "red",
+    marginBottom: 20,
+    textAlign: "center",
   },
   input: {
-    width: "80%",
-    height: 50,
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 5,
+    width: "90%",
+    marginBottom: 15,
     padding: 10,
+    borderRadius: 8,
+    backgroundColor: colors.tertiary,
+    color: colors.text,
+  },
+  buttonContainer: {
+    width: "50%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: colors.secondary,
+    fontSize: 18,
   },
 });
 
+export default Login;
