@@ -25,9 +25,19 @@ const Home = () => {
 
   useEffect(() => {
     if (data) {
-      setTodos(data.todos);
+      console.log("data ", data);
+      // data.todos.forEach(console.log)
+      setTodos(data.soumya_todo.todos);
     }
   }, [data]);
+
+  // useEffect(() => {
+  //   console.log("Loading >> ", loading);
+  // }, [loading])
+
+  // useEffect(() => {
+  //   console.log("Error >> ", error);
+  // }, [error])
 
   const handleAddTodo = async (todo) => {
     await addTodo({

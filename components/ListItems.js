@@ -16,17 +16,10 @@ import {
 const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
   const [swipedRow, setSwipedRow] = useState(null);
 
-  // const handleDeleteTodo = (rowMap, rowKey) => {
-  //   const newTodos = [...todos];
-  //   const todoIndex = todos.findIndex((todo) => todo.key === rowKey);
-  //   newTodos.splice(todoIndex, 1);
-  //   setTodos(newTodos);
-  // };
-
   return (
       <Container>
-      {todos.length === 0 && <TodoText>No Todos</TodoText>}
-      {todos.length != 0 && (
+      {!todos || todos.length === 0 && <TodoText>No Todos</TodoText>}
+      {todos && todos.length != 0 && (
         <SwipeListView
           data={todos}
           renderItem={(data) => {
@@ -41,7 +34,7 @@ const ListItems = ({ todos, setTodos, handleTriggerEdit,handleDeleteTodo }) => {
                 }}
               >
                 <>
-                  <RowText>{data.item.title}</RowText>
+                  <TodoText>{data.item.title}</TodoText>
                   <TodoDate>{data.item.date}</TodoDate>
                 </>
               </ListView>

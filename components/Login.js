@@ -63,7 +63,6 @@ const Login = () => {
     <Container style={styles.container}>
       <HeaderTitle style={styles.title}>Login</HeaderTitle>
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      {/* <KeyboardAvoidingView > */}
       <StyledInput
         placeholder="Email"
         value={email}
@@ -86,7 +85,6 @@ const Login = () => {
         <Button title="Sign In" onPress={signIn} />
         <Button title="Sign Up" onPress={signUp} />
       </View>
-        {/* </KeyboardAvoidingView> */}
     </Container>
   );
 };
